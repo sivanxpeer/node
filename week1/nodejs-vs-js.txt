@@ -1,0 +1,23 @@
+Q:
+What are 3 things node.js has that the client side javascript doesn’t
+have. And the reasons why.
+
+A:
+1. node has a global varible - (kind of similar to the window object of the browser)
+                                stores alot of properties and methods  
+2. node has process object  -   gives us various properties and methods for manipulating the node process that is running
+                                (it includes the exit property which allows us to exit the current node process)
+3. node can access the file system (because of c++ bindings)
+
+
+
+1. client-side js has a window object - which store all the properties and methods regarding the window in the browser window
+2. client-side js has a document object - which stores all the properties and methods regarding dom -accessing and dom-manipulations 
+3. client-side js has access to local storage on the browser
+
+
+
+/// The key difference between a library and a framework is 
+    “Inversion of Control”. When calling a method from a library, the 
+    developer is in control. With a framework, the control is inverted: the
+    framework calls the developer's code.
