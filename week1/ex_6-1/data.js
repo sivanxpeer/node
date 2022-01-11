@@ -88,3 +88,6 @@ const food = (arr) => {
 };
 
 console.log(food(data));
+
+
+// foodObj is not an array so we cant use the forEach method on it
