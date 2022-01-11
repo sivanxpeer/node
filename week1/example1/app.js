@@ -12,8 +12,8 @@ console.log(validator.isURL('https:/example.com'));
 ///
 console.log(chalk.red(getNotes()));
 console.log(chalk.blue("Sivan"));
+console.log(chalk.inverse.green("Node using chalk npm module to color"));
 console.log(chalk.green.bold("Node using chalk npm module to color"));
-
 
 
 
