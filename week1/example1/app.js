@@ -1,4 +1,5 @@
 const validator=require('validator');
+const chalk=require('chalk');
 const getNotes= require('./notes');
 
 
@@ -8,7 +9,10 @@ console.log(validator.isEmail('@example.com'));
 ///
 console.log(validator.isURL('https://example.com'));
 console.log(validator.isURL('https:/example.com'));
-
+///
+console.log(chalk.red(getNotes()));
+console.log(chalk.blue("Sivan"));
+console.log(chalk.green("Node using chalk npm module to color"));
 
 
 
