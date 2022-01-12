@@ -28,7 +28,7 @@ app.use(express.static(publicDirectoryPath));   ///connecting the index.html pag
 app.get('/wheather', (req, res) => {
     res.send([{ "Sunday": {"sky":"sunny","degrees":"24","location":"Israel"} }, { "monday": {"sky":"rain","degrees":"17","location":"Israel"} }, { "tuesday": {"sky":"rain","degrees":"17","location":"Israel"} }, { "wednesday": "rain" }, { "thursday": "sunny" }, { "friday": "rain" }, { "saturday": "rain" }])
 })
-
+app.set('view engine','hbs')
 //use only one time in our app --this starts up the server and have it listen on a specific port
 //the process of starting the server is asynchronous 
 app.listen(3000, () => {
