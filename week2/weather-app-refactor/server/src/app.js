@@ -43,12 +43,13 @@ app.get('/products', (req, res) => {
     }
 
     console.log(req.query.search)
+    console.log(res)
     res.send({
         products: []
     })
 })
 
-
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server is up on port ${PORT}.`)
 })
