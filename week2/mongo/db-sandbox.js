@@ -9,6 +9,8 @@ const id = new ObjectID()
 // console.log(id.id.length)
 // console.log(id.toHexString().length)
 
+
+//connect to db:
 MongoClient.connect(connectionURL, { useNewUrlParser: true }, async (error, client) => {
     if (error) {
         return console.log('Unable to connect to database!')
@@ -16,6 +18,8 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, async (error, clie
 
     const db = client.db(databaseName)
 
+
+    //create collection and insert data:
     // await db.collection("users").createIndex({ email: 1 }, { unique: true }); //avoid duplicates by unique email 
     // db.collection('users').insertOne({
     //     name: 'Vikram',
@@ -67,27 +71,27 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, async (error, clie
 
     //fetching data from the DB
 
-    // db.collection('users').findOne({ name: "Jen" }, (error, result) => {
-    //     if (error) {
-    //         return console.log("unable to fetch");
-    //     }
-    //     console.log(result);
-    // })
+    db.collection('users').findOne({ name: "Jen" }, (error, result) => {
+        if (error) {
+            return console.log("unable to fetch");
+        }
+        console.log(result);
+    })
 
-    // //method find returns a cursor -- use toArray() method to see the data 
-    // db.collection('users').find({age:27}).toArray((error, result) => {
-    //     if(error) {
-    //         return console.log("unable to fetch");
-    //     }
-    //     console.log(result);
-    // });
-    // //can use count() method on the cursor that find() returns (and more methods...(see docs))
-    // db.collection('users').find({age:27}).count((error, result) => {
-    //     if(error) {
-    //         return console.log("unable to fetch");
-    //     }
-    //     console.log(result);
-    // });
+    //method find returns a cursor -- use toArray() method to see the data 
+    db.collection('users').find({age:27}).toArray((error, result) => {
+        if(error) {
+            return console.log("unable to fetch");
+        }
+        console.log(result);
+    });
+    //can use count() method on the cursor that find() returns (and more methods...(see docs))
+    db.collection('users').find({age:27}).count((error, result) => {
+        if(error) {
+            return console.log("unable to fetch");
+        }
+        console.log(result);
+    });
 
 
     //udemy tasks: 
