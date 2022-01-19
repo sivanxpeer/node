@@ -1,6 +1,7 @@
+const { log } = require('console');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
+mongoose.connect('mongodb://127.0.0.1:27017/products-db', {
     useNewUrlParser: true,
     useCreateIndex: true, // when mongoose works with mongodb our indices are created alowwing us to quicly access the data we need
 })
@@ -25,24 +26,48 @@ const Product = mongoose.model('Product', {
 const Details = mongoose.model('Details', {
     desciption: {
         type: String,
+        validate(description) {
+            if (description.length < 10) {
+                throw new Error("description must have at least 10 characters")
+            }
+        },
         required: true,
-        gt: (10),
+        // min: (10),
     },
     price: {
         type: Number,
         required: true,
-        gt: (-1)
+        // min: (-1)
     },
     discount: {
         type: Number,
         required: false,
         default: 0
     },
-    images:{
+    images: {
         type: Array,
-        gt: 2,
+        minlength: 2
     },
-    phoneNumber:{
-        
-    }
+    // phoneNumber: {
+    //     type: ,
+
+
+    // }
 })
+
+
+const details = new Details({
+    desciption:"iphone",
+    price: 500,
+    isActive: true,
+    images:['one', 'two']
+})
+const product = new Product({
+    name:"iphone",
+    category:"electronics",
+    isActive: true,
+    details: (details)
+})
+
+product.save().then(() => {console.log(product)}).catch((err) => {console.log(err)})
+details.save().then(() => {console.log(details)}).catch((err) => {console.log(err)})
