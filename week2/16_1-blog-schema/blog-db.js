@@ -1,15 +1,11 @@
 // CRUD - Create Read Update Delete 
-// const mongodb = require("mongodb");
+const mongodb = require("mongodb");
 //mongoClient will gice us access to the functions necessary to connect to the database so we can perform theCRUD ops
-// const MongoClient = mongodb.MongoClient;
+const MongoClient = mongodb.MongoClient;
 
-const {MongoClient,ObjectID} = require("mongodb");
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'blog-db'
 
-const id = new ObjectID();
-console.log(id);
-console.log(id.getTimestamp());
 
 MongoClient.connect(connectionURL,
     { useNewUrlParser: true },
@@ -23,7 +19,6 @@ MongoClient.connect(connectionURL,
 
         //add one user  
         db.collection('users').insertOne({
-            _id:id,
             name: "sivan",
             email: "sivan@gmail.com"
         }, (error, result) => {
