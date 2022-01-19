@@ -1,127 +1,111 @@
-// CRUD - Create Read Update Delete 
-// const mongodb = require("mongodb");
-//mongoClient will gice us access to the functions necessary to connect to the database so we can perform theCRUD ops
-// const MongoClient = mongodb.MongoClient;
+// CRUD create read update delete
 
-const {MongoClient,ObjectID} = require("mongodb");
+const { MongoClient, ObjectID } = require('mongodb')
+
 const connectionURL = 'mongodb://127.0.0.1:27017'
-const databaseName = 'blog-db'
+const databaseName = 'task-manager'
 
-const id = new ObjectID();
-console.log(id);
-console.log(id.getTimestamp());
+const id = new ObjectID()
+// console.log(id.id.length)
+// console.log(id.toHexString().length)
 
-MongoClient.connect(connectionURL,
-    { useNewUrlParser: true },
-    async (error, client) => {
-        if (error) {
-            return console.log("unable to connect to database");
-        }
-        console.log("connected correctly");
-
-        const db = client.db(databaseName);
-
-        //add one user  
-        db.collection('users').insertOne({
-            _id:id,
-            name: "sivan",
-            email: "sivan@gmail.com"
-        }, (error, result) => {
-            if (error) {
-                return console.log("unable to insert user");
-            }
-            console.log(result.acknowledged, result.insertedId)
-        })
-
-        //add many users   
-        async (error, client) => {
-            if (error) {
-                return console.log("can't connect");
-            }
-            console.log("connected correctly");
-            const db = client.db(databaseName);
-            //email needs to be unique
-            await db.collection("users").createIndex({ email: 1 }, { unique: true });
-            db.collection("users").insertMany([
-                { name: "timmy", email: "timmy@gmail.com" },
-                { name: "Mike", email: "mike@gmail.com" },
-            ]
-            )
-                ,
-                (error, result) => {
-                    if (error) {
-                        return console.log("unable to insert users");
-                    }
-                    console.log(client, result.insertedIds)
-                }
-        }
-
-        //user creates a post 
-        const post = {
-            title: "My first post",
-            text: "I'm so excited to post here",
-            tags: ["first", "excited"],
-        };
-        const post2 = {
-            title: "timmys post",
-            text: "timmy posts here for the first time",
-            tags: ["first", "time"],
-        };
-
-        //get the userId of post creator
-        const userPost = await db.collection("users").findOne({ email: "sivan@gmail.com" })
-        if (!userPost) {
-            return console.log("cant find user");
-        }
-        console.log(userPost);
-
-
-        //store it in the posts collection
-        await db.collection("posts").insertOne({
-            myId: 1,
-            title: post.title,
-            text: post.text,
-            tags: post.tags,
-            comments: [],
-            owner: userPost._id,
-            ownerName: userPost.name,
-        });
-
-
-        const userPost2 = await db.collection("users").findOne({ email: "timmy@gmail.com" })
-        if (!userPost2) {
-            return console.log("cant find user");
-        }
-        console.log(userPost2);
-
-
-        //store it in the posts collection
-        await db.collection("posts").insertOne({
-            myId: 1,
-            title: post2.title,
-            text: post2.text,
-            tags: post2.tags,
-            comments: [],
-            owner: userPost2._id,
-            ownerName: userPost2.name,
-        });
-
-        const comment = {
-            text: "hey i really like this!"
-        }
-
-        const userComment = await db.collection('users').findOne({ email: "sivan@gmail.com" })
-        if (!userComment) {
-            return console.log("user was not found");
-        }
-        await db.collection("posts").updateOne(
-            { myId: 1 },
-            {
-                $push: { comments: { text: comment.text, owner: userComment._id } },
-            }
-        );
-        return userComment
+MongoClient.connect(connectionURL, { useNewUrlParser: true }, async (error, client) => {
+    if (error) {
+        return console.log('Unable to connect to database!')
     }
-);
+
+    const db = client.db(databaseName)
+
+    // await db.collection("users").createIndex({ email: 1 }, { unique: true }); //avoid duplicates by unique email 
+    // db.collection('users').insertOne({
+    //     name: 'Vikram',
+    //     age: 26
+    // }, (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert user')
+    //     }
+
+    //     console.log(result.insertedId)
+    // })
+
+    // db.collection('users').insertMany([
+    //     {
+    //         name: 'Jen',
+    //         age: 28
+    //     }, {
+    //         name: 'Gunther',
+    //         age: 27
+    //     }
+    // ], (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert documents!')
+    //     }
+
+    //     console.log(result.insertedIds)
+    // })
+
+    // db.collection('tasks').insertMany([
+    //     {
+    //         description: 'Clean the house',
+    //         completed: true
+    //     },{
+    //         description: 'Renew inspection',
+    //         completed: false
+    //     },{
+    //         description: 'Pot plants',
+    //         completed: false
+    //     }
+    // ], (error, result) => {
+    //     if (error) {
+    //         return console.log('Unable to insert tasks!')
+    //     }
+
+    //     console.log(result.insertedIds)
+    // })
 
 
+
+    //fetching data from the DB
+
+    // db.collection('users').findOne({ name: "Jen" }, (error, result) => {
+    //     if (error) {
+    //         return console.log("unable to fetch");
+    //     }
+    //     console.log(result);
+    // })
+
+    // //method find returns a cursor -- use toArray() method to see the data 
+    // db.collection('users').find({age:27}).toArray((error, result) => {
+    //     if(error) {
+    //         return console.log("unable to fetch");
+    //     }
+    //     console.log(result);
+    // });
+    // //can use count() method on the cursor that find() returns (and more methods...(see docs))
+    // db.collection('users').find({age:27}).count((error, result) => {
+    //     if(error) {
+    //         return console.log("unable to fetch");
+    //     }
+    //     console.log(result);
+    // });
+
+
+    //udemy tasks: 
+    // 1.use findOne to fetch the last task by its id 
+    db.collection('tasks').find({ "_id": new ObjectID("61e77aa145727c7455321140")}).toArray((error, result) => {
+        if (error) {
+            return console.log("unable to fetch");
+        }
+        console.log("by id: ",result);
+    });
+
+    //2. fetch tasks that are not completed
+    db.collection('tasks').find({ "completed": false }).toArray((error, result) => {
+        if (error) {
+            return console.log("unable to fetch");
+        }
+        console.log("not completed: ",result);
+    });
+
+
+})
