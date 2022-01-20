@@ -107,3 +107,8 @@ product.save().then(() => { console.log(product) }).catch((err) => { console.log
 product2.save().then(() => { console.log(product2) }).catch((err) => { console.log(err) })
 product3.save().then(() => { console.log(product3) }).catch((err) => { console.log(err) })
 // details.save().then(() => { console.log(details) }).catch((err) => { console.log(err) }) 
+
+
+module.exports={
+    Product:Product
+}
