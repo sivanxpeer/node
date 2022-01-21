@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // const validator = require('validator');
 
 mongoose.connect('mongodb://127.0.0.1:27017/products-db', {
-    // useNewUrlParser: true,
+    useNewUrlParser: true,
     // useCreateIndex: true, // when mongoose works with mongodb our indices are created alowwing us to quicly access the data we need
 })
 
