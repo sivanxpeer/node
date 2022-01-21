@@ -13,7 +13,8 @@ const Product = mongoose.model('Product', {
     },
     isActive: {
         type: Boolean
-    },
+    }
+    // ,
     
     //embedded object:
     // details: {

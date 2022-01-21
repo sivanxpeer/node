@@ -1,11 +1,11 @@
 // const { log } = require('console');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 // const validator = require('validator');
 
-// mongoose.connect('mongodb://127.0.0.1:27017/products-db', {
-//     useNewUrlParser: true,
-//     useCreateIndex: true, // when mongoose works with mongodb our indices are created alowwing us to quicly access the data we need
-// })
+mongoose.connect('mongodb://127.0.0.1:27017/products-db', {
+    // useNewUrlParser: true,
+    // useCreateIndex: true, // when mongoose works with mongodb our indices are created alowwing us to quicly access the data we need
+})
 
 // //define the model:  mongoose.model(modelname,defenition)
 // const Product = mongoose.model('Product', {

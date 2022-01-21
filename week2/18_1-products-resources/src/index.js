@@ -1,5 +1,6 @@
-const express = require('express')
-const Product= require('./models/Product');
+const express = require('express');
+const Product= require('./models/product.js');
+require('./db/ecommerce.js')
 
 
 const app=express()
@@ -16,7 +17,9 @@ app.post('/products',(req,res)=>{
     const product = new Product(req.body)
     product.save().then(()=>{
         res.send(product)
-    }).catch((err)=>{console.log(err)})
+    }).catch((err)=>{
+        res.status(400).send(err);
+    })
 })
 
 
