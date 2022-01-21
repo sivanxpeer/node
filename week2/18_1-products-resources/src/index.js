@@ -1,5 +1,6 @@
 const express = require('express')
-const {Product} = "db/ecommerce/Product"
+const Product= require('./models/Product');
+
 
 const app=express()
 
@@ -10,7 +11,12 @@ app.use(express.json())
 // 1.Create a product
 
 app.post('/products',(req,res)=>{
-    res.send("new Product")
+    // console.log(req.body)
+    // res.send("new Product")
+    const product = new Product(req.body)
+    product.save().then(()=>{
+        res.send(product)
+    }).catch((err)=>{console.log(err)})
 })
 
 
